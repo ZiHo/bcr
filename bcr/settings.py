@@ -87,13 +87,13 @@ WSGI_APPLICATION = 'bcr.wsgi.application'
 #     }
 # }
 DATABASES = {
-    'default':{
-        'ENGINE':'django.db.backends.mysql',
-        'NAME':'bcr',
-        'USER':'bcr',
-        'PASSWORD':'bcr20190330',
-        'HOST':'112.74.169.250',
-        'PORT':'3306',
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bcr',
+        'USER': 'bcr',
+        'PASSWORD': 'bcr20190330',
+        'HOST': '112.74.169.250',
+        'PORT': '3306',
     }
 }
 
