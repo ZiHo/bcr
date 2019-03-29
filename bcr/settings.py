@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+try:
+    import pymysql
+    pymysql.install_as_MySQLdb()
+except Exception:
+    pass
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -74,10 +79,20 @@ WSGI_APPLICATION = 'bcr.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    'default':{
+        'ENGINE':'django.db.backends.mysql',
+        'NAME':'bcr',
+        'USER':'bcr',
+        'PASSWORD':'bcr20190330',
+        'HOST':'112.74.169.250',
+        'PORT':'3306',
     }
 }
 
