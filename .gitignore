@@ -1,0 +1,13 @@
+# ignore Pycharm files
+.DS_Store
+.idea
+bcr/.idea
+venv
+bcr/venv
+
+#django files
+*.egg-info
+*.pot
+*.py[co]
+__pycache__
+__pycache__/
