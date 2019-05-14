@@ -34,6 +34,7 @@ class borrowInfo(models.Model):
 class clean(models.Model):
     cleaner_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     classroom_id = models.ForeignKey(classroom, on_delete=models.DO_NOTHING)
+    #clean_time = models.DateTimeField(auto_now_add=True)
     is_clean = models.BooleanField(default=False)
 
 
