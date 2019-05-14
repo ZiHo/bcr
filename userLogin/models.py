@@ -4,4 +4,3 @@ from django.contrib.auth.models import User
 class userInfo(models.Model):
     name = models.CharField(max_length=10)
     passwd = models.CharField(max_length=30)
-    credit_score = models.IntegerField
