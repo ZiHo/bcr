@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>User Homepage</title>
 
@@ -16,116 +16,119 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body>
-  	  <style>
-		  footer {
-			  position: fixed;
-			  left: 0px;
-			  bottom: 0px;
-			  width: 100%;
-			  height: 25px;
-			  background: #333;
-			  color: #fff;
-			  z-index: 9999;
-			  text-align: center;
-		  }
-	  </style>
-	  <header>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="#">Booking System</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+</head>
+<body>
+<style>
+    footer {
+        position: fixed;
+        left: 0px;
+        bottom: 0px;
+        width: 100%;
+        height: 25px;
+        background: #333;
+        color: #fff;
+        z-index: 9999;
+        text-align: center;
+    }
+</style>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Booking System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+                aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-			<div class="collapse navbar-collapse" id="navbarColor02">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="#">Book Room<span class="sr-only">(current)</span></a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Cancel Reservation</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Long-term Reservation</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Feedback</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Mailbox</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">My Profile</a>
-					</li>
-				</ul>
-				<form class="form-inline my-2 my-lg-0">
-				<button class="btn btn-secondary my-2 my-sm-0" type="submit">logout</button>
-				</form>
-			</div>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href=" {% url 'book_classroom' %} ">Book Room<span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href=" {% url 'cancel_classroom' %}">Cancel Reservation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href=" {% url 'longbook_classroom' %}">Long-term Reservation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href=" {% url 'use_feedback' %}">Feedback</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href=" {% url 'mailbox' %} ">Mailbox</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'myProfile' %}">My Profile</a>
+                </li>
+            </ul>
+            <a href="{% url 'user_logout' %}">
+                <button class="btn btn-secondary my-2 my-sm-0">logout</button>
+            </a>
+        </div>
 
-		</nav>
-	  </header>
-	  <div class="container"><br><br><br>
-		  <div class="row">
-			  <div class="col-md-4">
-			  	<a href="#">
-				  	<img src="../static/picture/booking.png" style=" width:150px;height:150px"/>
-			  	</a>
-			  	<div class="pr-details">
-				  	<h2>Book Room</h2>
-			  	</div>
-			  </div>
-			  <div class="col-md-4">
-				  <a href="#">
-					  <img src="../static/picture/cancel.png" style=" width:150px;height:150px"/>
-				  </a>
-				  <div class="pr-details">
-					  <h2>Cancel Reservation</h2>
-				  </div>
-			  </div>
-			  <div class="col-md-4">
-				  <a href="#">
-					  <img src="../static/picture/long.png" style=" width:150px;height:150px"/>
-				  </a>
-				  <div class="pr-details">
-					  <h2>Long-term</h2>
-					  <h2>Reservation</h2>
-				  </div>
-			  </div>
-		  </div><br><br><br>
-		  <div class="row">
-			  <div class="col-md-4">
-				  <a href="#">
-					  <img src="../static/picture/feedback.png" style=" width:150px;height:150px"/>
-				  </a>
-				  <div class="pr-details">
-					  <h2>Feedback</h2>
-				  </div>
-			  </div>
-			  <div class="col-md-4">
-				  <a href="#">
-					  <img src="../static/picture/mailbox.png" style=" width:150px;height:150px"/>
-				  </a>
-				  <div class="pr-details">
-					  <h2>Mailbox</h2>
-				  </div>
-			  </div>
-			  <div class="col-md-4">
-				  <a href="#">
-					  <img src="../static/picture/profile.png" style=" width:150px;height:150px"/>
-				  </a>
-				  <div class="pr-details">
-					  <h2>My Profile</h2>
-				  </div>
-			  </div>
-		  </div>
-	  </div>
-    <br><br>
-	  <footer>
-    	<div class="container">
-			Copyright © UIC. Python Group 5. All rights reserved.
-		</div>
-	  </footer>
-  </body>
- </html>
+    </nav>
+</header>
+<div class="container"><br><br><br>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{% url 'book_classroom' %} ">
+                <img src="../static/picture/booking.png" style=" width:150px;height:150px"/>
+            </a>
+            <div class="pr-details">
+                <h2>Book Room</h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'cancel_classroom' %}">
+                <img src="../static/picture/cancel.png" style=" width:150px;height:150px"/>
+            </a>
+            <div class="pr-details">
+                <h2>Cancel Reservation</h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <a href=" {% url 'longbook_classroom' %}">
+                <img src="../static/picture/long.png" style=" width:150px;height:150px"/>
+            </a>
+            <div class="pr-details">
+                <h2>Long-term</h2>
+                <h2>Reservation</h2>
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <div class="row">
+        <div class="col-md-4">
+            <a href=" {% url 'use_feedback' %}">
+                <img src="../static/picture/feedback.png" style=" width:150px;height:150px"/>
+            </a>
+            <div class="pr-details">
+                <h2>Feedback</h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <a href=" {% url 'mailbox' %}">
+                <img src="../static/picture/mailbox.png" style=" width:150px;height:150px"/>
+            </a>
+            <div class="pr-details">
+                <h2>Mailbox</h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <a href=" {% url 'myProfile' %}">
+                <img src="../static/picture/profile.png" style=" width:150px;height:150px"/>
+            </a>
+            <div class="pr-details">
+                <h2>My Profile</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+<footer>
+    <div class="container">
+        Copyright © UIC. Python Group 5. All rights reserved.
+    </div>
+</footer>
+</body>
+</html>

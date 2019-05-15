@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import classroom, storageType, storageInfo, borrowInfo, clean, credit, creditRecord
+from .models import classroom, storageType, storageInfo, bookInfo, clean, credit, creditRecord
 
 
 @admin.register(classroom)
@@ -17,9 +17,9 @@ class storageInfoAdmin(admin.ModelAdmin):
     list_display = ('id', 'type_id', 'storage_comment')
 
 
-@admin.register(borrowInfo)
-class borrowInfoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'classroom_id', 'borrower_id', 'start_time', 'end_time', 'requirement')
+@admin.register(bookInfo)
+class bookInfoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'classroom_id', 'booker_id', 'start_time', 'end_time', 'requirement')
 
 
 @admin.register(clean)

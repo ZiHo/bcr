@@ -23,9 +23,9 @@ class storageInfo(models.Model):
     storage_comment = models.TextField(null=True)
 
 
-class borrowInfo(models.Model):
+class bookInfo(models.Model):
     classroom_id = models.ForeignKey(classroom, on_delete=models.DO_NOTHING)
-    borrower_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    booker_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=True)
     requirement = models.TextField(null=True)
