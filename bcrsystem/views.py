@@ -1,9 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+from .forms import LoginForm, bookingForm
 from django.contrib import auth
 from django.urls import reverse
+
+
+def index(request):
+    return render(request, 'new_homepage.html')
 
 
 def user_login(request):
@@ -39,7 +43,17 @@ def homeFunction(request):
 
 @login_required(login_url='user_login')
 def bookClassroom(request):
-    return render(request, 'Booking_page.html')
+    if request.method == 'POST':
+        form1 = bookingForm(request.POST)
+        if form1.is_valid():
+            a = form1.cleaned_data['Type']
+            b = form1.cleaned_data['Day']
+            print(a, b)
+    else:
+        form = bookingForm()
+        context = dict()
+        context['form'] = form
+    return render(request, 'Booking_page.html', context)
 
 
 @login_required(login_url='user_login')
