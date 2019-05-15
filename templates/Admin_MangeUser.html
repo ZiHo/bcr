@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Manage users</title>
 
@@ -16,121 +16,123 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body>
-  	  <style>
-		  footer {
-			  position: fixed;
-			  left: 0px;
-			  bottom: 0px;
-			  width: 100%;
-			  height: 25px;
-			  background: #333;
-			  color: #fff;
-			  z-index: 9999;
-			  text-align: center;
-		  }
-	  </style>
-	  <header>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="#">Booking System</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+</head>
+<body>
+<style>
+    footer {
+        position: fixed;
+        left: 0px;
+        bottom: 0px;
+        width: 100%;
+        height: 25px;
+        background: #333;
+        color: #fff;
+        z-index: 9999;
+        text-align: center;
+    }
+</style>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'adminHomepage' %}">Admin System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+                aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-			<div class="collapse navbar-collapse" id="navbarColor02">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="#">Check Application<span class="sr-only">(current)</span></a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Manage Room</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Manage User</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Check Storage</a>
-					</li>
-				</ul>
-				<form class="form-inline my-2 my-lg-0">
-				<button class="btn btn-secondary my-2 my-sm-0" type="submit">logout</button>
-				</form>
-			</div>
-		</nav>
-	  </header>
-	  <div class="container"><br><br><br>
-		  <div class="row">
-			  <h2>Search Users</h2>
-		  </div>
-		  <div class="row">
-			  <form class="form-inline">
-				  <div class="form-group">
-					  <div class="col-sm-2">
-						  <label class="form-inline" >Identity</label>
-					  </div>
-					  <div class="col-sm-5">
-						  <select class="form-control" style="width:300px"  >
-							  <option>Year-1</option>
-							  <option>Year-2</option>
-							  <option>Year-3</option>
-							  <option>Year-4</option>
-							  <option>Teacher</option>
-							  <option>Association</option>
-						  </select>
-					  </div>
-				  </div>
-				  <div class="form-group">
-					  <div class="col-sm-2">
-					  	<label class="form-inline" >Major</label>
-					  </div>
-					  <div class="col-sm-5">
-						  <select class="form-control" style="width:300px">
-							  <option>Accounting</option>
-							  <option>Finance</option>
-							  <option>Applied Economics</option>
-							  <option>Management of Human Resources</option>
-							  <option>Marketing Management</option>
-							  <option>Culture, Creativity and Management</option>
-							  <option>Cinema and Television</option>
-							  <option>Media Arts and Design</option>
-							  <option>Applied Translation Studies</option>
-							  <option>English Language and Literature Studies</option>
-							  <option>Government and International Relations</option>
-							  <option>International Journalism</option>
-							  <option>Public Relations and Advertising</option>
-							  <option>Social Work and Social Administration</option>
-							  <option>Applied Psychology</option>
-							  <option>Computer Science and Technology</option>
-							  <option>Data Science</option>
-							  <option>Environmental Science</option>
-							  <option>Statistics</option>
-							  <option>Financial Mathematics</option>
-							  <option>Food Science and Technology</option>
-						  </select>
-					  </div>
-				  </div>
-				  <div class="form-group">
-					   <div class="col-sm-2">
-					    <button class="btn btn-primary"style="width:100px">Search</button>
-					   </div>
-				  </div>
-			  </form>
-		  </div><br><br><br>
-		  <div>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'checkApplication' %}">Check Application<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'manageroom' %}">Manage Room</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'manageuser' %}">Manage User</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'managestorge' %}">Check Storage</a>
+                </li>
+            </ul>
+            <a href="{% url 'user_logout' %}">
+                <button class="btn btn-secondary my-2 my-sm-0">logout</button>
+            </a>
+        </div>
+    </nav>
+</header>
+<div class="container"><br><br><br>
+    <div class="row">
+        <h2>Search Users</h2>
+    </div>
+    <div class="row">
+        <form class="form-inline">
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="form-inline">Identity</label>
+                </div>
+                <div class="col-sm-5">
+                    <select class="form-control" style="width:300px">
+                        <option>Year-1</option>
+                        <option>Year-2</option>
+                        <option>Year-3</option>
+                        <option>Year-4</option>
+                        <option>Teacher</option>
+                        <option>Association</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label class="form-inline">Major</label>
+                </div>
+                <div class="col-sm-5">
+                    <select class="form-control" style="width:300px">
+                        <option>Accounting</option>
+                        <option>Finance</option>
+                        <option>Applied Economics</option>
+                        <option>Management of Human Resources</option>
+                        <option>Marketing Management</option>
+                        <option>Culture, Creativity and Management</option>
+                        <option>Cinema and Television</option>
+                        <option>Media Arts and Design</option>
+                        <option>Applied Translation Studies</option>
+                        <option>English Language and Literature Studies</option>
+                        <option>Government and International Relations</option>
+                        <option>International Journalism</option>
+                        <option>Public Relations and Advertising</option>
+                        <option>Social Work and Social Administration</option>
+                        <option>Applied Psychology</option>
+                        <option>Computer Science and Technology</option>
+                        <option>Data Science</option>
+                        <option>Environmental Science</option>
+                        <option>Statistics</option>
+                        <option>Financial Mathematics</option>
+                        <option>Food Science and Technology</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" style="width:100px">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br><br><br>
+    <div>
 
-			  <!--
-			  点击search输出数据库中匹配的表单（可直接前端编辑那种）
-			  加油！
-			  -->
+        <!--
+        点击search输出数据库中匹配的表单（可直接前端编辑那种）
+        加油！
+        -->
 
-		  </div>
+    </div>
 
-	  </div>
-	  <footer>
-    	<div class="container">
-			Copyright © UIC. Python Group 5. All rights reserved.
-		</div>
-	  </footer>
-  </body>
- </html>
+</div>
+<footer>
+    <div class="container">
+        Copyright © UIC. Python Group 5. All rights reserved.
+    </div>
+</footer>
+</body>
+</html>

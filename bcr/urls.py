@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('userLogin/', include('userLogin.urls')),
     path('', include('bcrsystem.urls')),
+    path('', include('bcradmin.urls')),
 ]

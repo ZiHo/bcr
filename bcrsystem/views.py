@@ -15,11 +15,15 @@ def user_login(request):
             if login_form.is_valid():
                 user = login_form.cleaned_data['user']
                 auth.login(request, user)
-                return redirect(request.GET.get('from', reverse('homepage')))
+                if request.user.is_superuser:
+                    return redirect(request.GET.get('from', reverse('adminHomepage')))
+                else:
+                    return redirect(request.GET.get('from', reverse('homepage')))
         else:
             login_form = LoginForm()
         context = {}
         context['login_form'] = login_form
+
         return render(request, 'login.html', context)
 
 
