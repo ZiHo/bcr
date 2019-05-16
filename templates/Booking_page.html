@@ -75,111 +75,139 @@
 <!--------------------main part------------------------>
 
 <div class="container"><br><br><br>
-    <div class="row">
-        <div class="col-md-2">
+    <form action="" method="POST">
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <h2>Select Room Type and Time</h2><br><br>
         </div>
-        <h2>Select Room Type</h2>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
+        {#    <div class="row">#}
+        {#        <div class="col-md-4">#}
+        {##}
+        {#        </div>#}
+        {#        <div class="col-md-2">#}
+        {#            <div class="custom-control custom-radio">#}
+        {#                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">#}
+        {#                <label class="custom-control-label" for="customRadio2">Normal Room</label>#}
+        {#            </div>#}
+        {#        </div>#}
+        {#        <div class="col-md-4">#}
+        {#            <div class="custom-control custom-radio">#}
+        {#                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">#}
+        {#                <label class="custom-control-label" for="customRadio1">Lab Room</label>#}
+        {#            </div>#}
+        {#        </div>#}
+        {#        <div class="col-md-2">#}
+        {#        </div>#}
+        {#    </div>#}
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
 
-        </div>
-        <div class="col-md-2">
-            <div class="custom-control custom-radio">
-                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                <label class="custom-control-label" for="customRadio2">Normal Room</label>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="custom-control custom-radio">
-                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">
-                <label class="custom-control-label" for="customRadio1">Lab Room</label>
-            </div>
-        </div>
-        <div class="col-md-2">
-        </div>
-    </div>
-    <br><br><br>
-    <div class="row">
-        <div class="col-md-2">
-        </div>
-        <h2>Reservation of this week</h2>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-        </div>
-        <div class="col-lg-4">
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-secondary"> Mon. </button>
-                    <button type="button" class="btn btn-secondary"> Tue. </button>
-                    <button type="button" class="btn btn-secondary"> Wed. </button>
-                    <button type="button" class="btn btn-secondary"> Thu. </button>
-                    <button type="button" class="btn btn-secondary"> Fri. </button>
-                    <button type="button" class="btn btn-secondary"> Sat. </button>
-                    <button type="button" class="btn btn-secondary"> Sun. </button>
+
+                {% csrf_token %}
+                {% for field in bookform %}
+                    <label for="{{ field.id_for_label }}">{{ field.label|safe }}</label>
+                    {{ field }}
+                    <p class="text-danger">{{ field.errors.as_text }}</p>
+                {% endfor %}
+                <input type="submit" class="btn btn-primary pull-right" value="check">
+                <div>
+                    {% if book_error %}
+                        <h3>
+                            <div class="alert alert-danger text-center" role="alert">
+                                {{ book_error|safe }}
+                            </div>
+                        </h3>
+                    {% endif %}
+                    {% if book_success %}
+                        <h3>
+                            <div class="alert alert-danger text-center" role="alert">
+                                {{ book_success|safe }}
+                            </div>
+                        </h3>
+                    {% endif %}
                 </div>
             </div>
+
         </div>
-        <div class="col-lg-4">
-        </div>
-        <div class="col-md-2">
-        </div>
-    </div>
+    </form>
     <br><br><br>
-    <div class="row">
-        <div class="col-md-2">
-        </div>
-        <h2>Sunday,Lab Room</h2>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-7">
-            <table class="table table-hover" style="text-align:center">
-                <thead>
-                <tr>
-                    <th scope="col">Time</th>
-                    <th scope="col">Room Number</th>
-                    <th scope="col">Reserve</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="table-primary">
-                    <th scope="row">8:00-9:00</th>
-                    <td>101</td>
-                    <td>
-                        <button type="button" class="btn btn-primary">Reserve</button>
-                    </td>
-                </tr>
-                </tbody>
-                <tbody>
-                <tr class="table-primary">
-                    <th scope="row">9:00-10:00</th>
-                    <td>101</td>
-                    <td>
-                        <button type="button" class="btn btn-primary">Reserve</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-4">
-        </div>
-        <div class="col-md-2">
-        </div>
-    </div>
+    {#    <div class="row">#}
+    {#        <div class="col-md-2">#}
+    {#        </div>#}
+    {#        <h2>Reservation of this week</h2>#}
+    {#    </div>#}
+    {#    <div class="row">#}
+    {#        <div class="col-md-4">#}
+    {#        </div>#}
+    {#        <div class="col-lg-4">#}
+    {#            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">#}
+    {#                <div class="btn-group mr-2" role="group" aria-label="First group">#}
+    {#                    <button type="button" class="btn btn-secondary"> Mon.</button>#}
+    {#                    <button type="button" class="btn btn-secondary"> Tue.</button>#}
+    {#                    <button type="button" class="btn btn-secondary"> Wed.</button>#}
+    {#                    <button type="button" class="btn btn-secondary"> Thu.</button>#}
+    {#                    <button type="button" class="btn btn-secondary"> Fri.</button>#}
+    {#                    <button type="button" class="btn btn-secondary"> Sat.</button>#}
+    {#                    <button type="button" class="btn btn-secondary"> Sun.</button>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        <div class="col-lg-4">#}
+    {#        </div>#}
+    {#        <div class="col-md-2">#}
+    {#        </div>#}
+    {#    </div>#}
+    {#    <br><br><br>#}
+    {#    <div class="row">#}
+    {#        <div class="col-md-2">#}
+    {#        </div>#}
+    {#        <h2>Sunday,Lab Room</h2>#}
+    {#    </div>#}
+    {#    <div class="row">#}
+    {#        <div class="col-md-3">#}
+    {#        </div>#}
+    {#        <div class="col-md-7">#}
+    {#            <table class="table table-hover" style="text-align:center">#}
+    {#                <thead>#}
+    {#                <tr>#}
+    {#                    <th scope="col">Time</th>#}
+    {#                    <th scope="col">Room Number</th>#}
+    {#                    <th scope="col">Reserve</th>#}
+    {#                </tr>#}
+    {#                </thead>#}
+    {#                <tbody>#}
+    {#                <tr class="table-primary">#}
+    {#                    <th scope="row">8:00-9:00</th>#}
+    {#                    <td>101</td>#}
+    {#                    <td>#}
+    {#                        <button type="button" class="btn btn-primary">Reserve</button>#}
+    {#                    </td>#}
+    {#                </tr>#}
+    {#                </tbody>#}
+    {#                <tbody>#}
+    {#                <tr class="table-primary">#}
+    {#                    <th scope="row">9:00-10:00</th>#}
+    {#                    <td>101</td>#}
+    {#                    <td>#}
+    {#                        <button type="button" class="btn btn-primary">Reserve</button>#}
+    {#                    </td>#}
+    {#                </tr>#}
+    {#                </tbody>#}
+    {#            </table>#}
+    {#        </div>#}
+    {#        <div class="col-lg-4">#}
+    {#        </div>#}
+    {#        <div class="col-md-2">#}
+    {#        </div>#}
+    {##}
+    {##}
+    {#    </div>#}
+
 </div>
- <form action="" method="POST">
-    {% csrf_token %}
-    {% for field in form %}
-        <label for="{{ field.id_for_label }}">{{ field.label|safe }}</label>
-        {{ field }}
-        <p class="text-danger">{{ field.errors.as_text }}</p>
-    {% endfor %}
-    <span class="pull-left text-danger">{{ login_form.non_field_errors }}</span>
-    <input type="submit" class="btn btn-primary pull-right" value="submit">
-</form>
+
 <br><br><br>
 <!------------------------footer---------------------->
 

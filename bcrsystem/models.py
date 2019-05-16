@@ -26,6 +26,9 @@ class storageInfo(models.Model):
 class bookInfo(models.Model):
     classroom_id = models.ForeignKey(classroom, on_delete=models.DO_NOTHING)
     booker_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    book_date = models.DateField(null=True)
+    start_hour = models.IntegerField(default=0)
+    end_hour = models.IntegerField(default=0)
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=True)
     requirement = models.TextField(null=True)
@@ -34,7 +37,7 @@ class bookInfo(models.Model):
 class clean(models.Model):
     cleaner_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     classroom_id = models.ForeignKey(classroom, on_delete=models.DO_NOTHING)
-    #clean_time = models.DateTimeField(auto_now_add=True)
+    # clean_time = models.DateTimeField(auto_now_add=True)
     is_clean = models.BooleanField(default=False)
 
 

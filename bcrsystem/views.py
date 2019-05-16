@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, bookingForm
+from .models import *
 from django.contrib import auth
 from django.urls import reverse
 
@@ -44,15 +45,46 @@ def homeFunction(request):
 @login_required(login_url='user_login')
 def bookClassroom(request):
     if request.method == 'POST':
-        form1 = bookingForm(request.POST)
-        if form1.is_valid():
-            a = form1.cleaned_data['Type']
-            b = form1.cleaned_data['Day']
-            print(a, b)
+        bookform = bookingForm(request.POST)
+        if bookform.is_valid():
+            # ----------------------------------
+            # Get the data from the booking form
+            # ----------------------------------
+            # booker_id = request.user.id
+            classroomType = bookform.cleaned_data['Type']
+            bookDate = bookform.cleaned_data['Date']
+            userID = request.session.get('_auth_user_id')
+            classroomLocation = bookform.cleaned_data['classroom_location']
+            classroomID = classroom.objects.get(room_location=classroomLocation).id
+            startHour = bookform.cleaned_data['Start_Time']
+            endHour = bookform.cleaned_data['End_Time']
+            # ----------------------------------
+            # Check the previous booking order
+            # ----------------------------------
+            if bookInfo.objects.filter(classroom_id=classroomID, start_hour=startHour):
+                bookError = "This classroom has been booked."
+                context = {}
+                context['book_error'] = bookError
+                return render(request, 'Booking_page.html', context)
+                # return redirect(reverse('showResult'),context)
+            else:
+                bookInfo.objects.create(
+                    booker_id_id=userID,
+                    book_date=bookDate,
+                    classroom_id_id=classroomID,
+                    start_hour=startHour,
+                    end_hour=endHour,
+                )
+                bookSuccess = "You have successfully booked this room"
+                context = {}
+                context['book_success'] = bookSuccess
+                return render(request, 'Booking_page.html', context)
+
     else:
-        form = bookingForm()
-        context = dict()
-        context['form'] = form
+        bookform = bookingForm()
+
+    context = dict()
+    context['bookform'] = bookform
     return render(request, 'Booking_page.html', context)
 
 
@@ -79,3 +111,8 @@ def mailbox(request):
 @login_required(login_url='user_login')
 def myProfile(request):
     return render(request, 'Porfile_page.html')
+
+
+@login_required(login_url='user_login')
+def showResult(requset):
+    return render(requset, 'book_result.html')

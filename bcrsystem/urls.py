@@ -12,4 +12,5 @@ urlpatterns = [
     path('feedback/',views.useFeedback,name='use_feedback'),
     path('mailbox/',views.mailbox,name='mailbox'),
     path('myprofile/',views.myProfile,name='myProfile'),
+    path('result/',views.showResult,name='showResult')
 ]

@@ -19,7 +19,8 @@ class storageInfoAdmin(admin.ModelAdmin):
 
 @admin.register(bookInfo)
 class bookInfoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'classroom_id', 'booker_id', 'start_time', 'end_time', 'requirement')
+    list_display = (
+    'id', 'classroom_id', 'booker_id', 'book_date', 'start_hour', 'end_hour', 'start_time', 'end_time', 'requirement')
 
 
 @admin.register(clean)
