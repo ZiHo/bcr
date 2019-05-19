@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -12,8 +13,10 @@ def user_logout(request):
 
 @login_required(login_url='user_login')
 def admin_home(request):
-    return render(request, 'Admin_homepage.html')
-
+    if request.user.is_superuser:
+        return render(request, 'Admin_homepage.html')
+    else:
+        raise Http404
 
 @login_required(login_url='user_login')
 def check_application(request):

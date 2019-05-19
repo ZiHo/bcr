@@ -45,6 +45,8 @@ class bookingForm(forms.Form):
                                                 empty_label='Choose classroom',
                                                 widget=forms.Select(attrs={'class': 'form-control'}))
 
+    book_requirement = forms.TextInput()
+
     def clean_Date(self):
         chooseDate = self.cleaned_data['Date']
         return chooseDate
@@ -67,3 +69,7 @@ class bookingForm(forms.Form):
         if endtime <= starttime:
             raise forms.ValidationError("Time Error")
         return endtime
+
+    def clean_book_requirement(self):
+        bookRequirement = self.cleaned_data['book_requirement']
+        return bookRequirement

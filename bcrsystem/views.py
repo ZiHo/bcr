@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, bookingForm
 from .models import *
@@ -83,14 +84,42 @@ def bookClassroom(request):
     else:
         bookform = bookingForm()
 
-    context = dict()
+    context = {}
     context['bookform'] = bookform
     return render(request, 'Booking_page.html', context)
 
 
 @login_required(login_url='user_login')
 def cancelClassroom(request):
-    return render(request, 'Cancel_page.html')
+    ###分页设计
+    userID = request.session.get('_auth_user_id')
+    all_recordings = bookInfo.objects.filter(booker_id_id=userID)
+    paginator = Paginator(all_recordings, 6)  # 五个记录分页
+    page_num = request.GET.get('page', 1)  # 获取GET,页码
+    page_of_recordings = paginator.get_page(page_num)
+    ###
+    current_page_num = page_of_recordings.number  # 获取当前页码
+    page_range = list(range(max(current_page_num - 2, 1), current_page_num)) + \
+                 list(range(current_page_num, min(current_page_num + 2, paginator.num_pages) + 1))
+
+    # 加上省略页码标记
+    if page_range[0] - 1 >= 2:
+        page_range.insert(0, '...')
+    if paginator.num_pages - page_range[-1] >= 2:
+        page_range.append('...')
+
+    # 加上首页尾页
+    if page_range[0] != 1:
+        page_range.insert(0, 1)
+    if page_range[-1] != paginator.num_pages:
+        page_range.append(paginator.num_pages)
+    ###
+    classroom_Location = classroom.objects.all()
+    context = {}
+    context['classroom_location'] = classroom_Location
+    context['page_range'] = page_range
+    context['BookInfo_all_list'] = page_of_recordings
+    return render(request, 'Cancel_page.html', context)
 
 
 @login_required(login_url='user_login')

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Cancel Page</title>
+    <script type="text/javascript" href="../static/popper.js-1.14.4/popper.min.js"></script>
 
     <!-- Bootstrap -->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
@@ -63,6 +64,7 @@
                     <a class="nav-link" href="{% url 'myProfile' %}">My Profile</a>
                 </li>
             </ul>
+            <a style="color: lightgoldenrodyellow">hi, {{ user }}</a>
             <a href="{% url 'user_logout' %}">
                 <button class="btn btn-secondary my-2 my-sm-0">logout</button>
             </a>
@@ -82,38 +84,40 @@
         <h2>Recrod of Reservation</h2>
     </div>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
         </div>
-        <div class="col-md-7">
+        <div class="col-md-8">
             <table class="table table-hover" style="text-align:center">
                 <thead>
                 <tr>
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
                     <th scope="col">Room Number</th>
+                    <th scope="col">Comment</th>
                     <th scope="col">Reserve</th>
                 </tr>
                 </thead>
+
                 <tbody>
-                <tr class="table-primary">
-                    <th scope="row">2019/05/05</th>
-                    <th scope="row">8:00-9:00</th>
-                    <td>101</td>
-                    <td>
-                        <button type="button" class="btn btn-primary">Cancel</button>
-                    </td>
-                </tr>
-                </tbody>
-                <tbody>
-                <tr class="table-primary">
-                    <th scope="row">2019/05/05</th>
-                    <th scope="row">9:00-10:00</th>
-                    <td>101</td>
-                    <td>
-                        <button type="button" class="btn btn-primary">Cancel</button>
-                    </td>
-                </tr>
-                </tbody>
+                {% for recordings in BookInfo_all_list.object_list %}
+
+                    <tr class="table-primary">
+                        <th scope="row">{{ recordings.book_date }}</th>
+                        <th scope="row">{{ recordings.start_hour }}:00 - {{ recordings.end_hour }}:00</th>
+                        <td>{{ recordings.classroom_id }}</td>
+                        <td>
+                            <button type="button" title="comment" value="show" data-container="body"
+                                    data-toggle="popover" data-placement="top"
+                                    data-content="{{ recordings.requirement }}">
+                                show
+                            </button>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary">Cancel</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
             </table>
         </div>
         <div class="col-lg-4">
@@ -130,6 +134,13 @@
         Copyright © UIC. Python Group 5. All rights reserved.
     </div>
 </footer>
+ <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover({
+                trigger: 'hover'
+            })
+        })
+    </script>
 
 </body>
 </html>

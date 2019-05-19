@@ -64,6 +64,7 @@
                     <a class="nav-link" href="{% url 'myProfile' %}">My Profile</a>
                 </li>
             </ul>
+            <a style="color: lightgoldenrodyellow">hi, {{ user }}</a>
             <a href="{% url 'user_logout' %}">
                 <button class="btn btn-secondary my-2 my-sm-0">logout</button>
             </a>
@@ -77,9 +78,11 @@
 <div class="container"><br><br><br>
     <form action="" method="POST">
         <div class="row">
-            <div class="col-md-3">
-            </div>
-            <h2>Select Room Type and Time</h2><br><br>
+            {% if not book_error %}
+                <div class="col-md-3">
+                </div>
+                <h2>Select Room Type and Time</h2><br><br>
+            {% endif %}
         </div>
         {#    <div class="row">#}
         {#        <div class="col-md-4">#}
@@ -112,7 +115,9 @@
                     {{ field }}
                     <p class="text-danger">{{ field.errors.as_text }}</p>
                 {% endfor %}
-                <input type="submit" class="btn btn-primary pull-right" value="check">
+                {% if not book_error %}
+                    <input type="submit" class="btn btn-primary pull-right" value="check">
+                {% endif %}
                 <div>
                     {% if book_error %}
                         <h3>
@@ -123,7 +128,7 @@
                     {% endif %}
                     {% if book_success %}
                         <h3>
-                            <div class="alert alert-danger text-center" role="alert">
+                            <div class="alert alert-success text-center" role="alert">
                                 {{ book_success|safe }}
                             </div>
                         </h3>
