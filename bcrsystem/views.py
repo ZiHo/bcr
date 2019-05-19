@@ -91,13 +91,12 @@ def bookClassroom(request):
 
 @login_required(login_url='user_login')
 def cancelClassroom(request):
-    ###分页设计
     userID = request.session.get('_auth_user_id')
     all_recordings = bookInfo.objects.filter(booker_id_id=userID)
-    paginator = Paginator(all_recordings, 6)  # 五个记录分页
-    page_num = request.GET.get('page', 1)  # 获取GET,页码
+    paginator = Paginator(all_recordings, 6)
+    page_num = request.GET.get('page', 1)
     page_of_recordings = paginator.get_page(page_num)
-    ###
+
     current_page_num = page_of_recordings.number  # 获取当前页码
     page_range = list(range(max(current_page_num - 2, 1), current_page_num)) + \
                  list(range(current_page_num, min(current_page_num + 2, paginator.num_pages) + 1))
@@ -120,6 +119,16 @@ def cancelClassroom(request):
     context['page_range'] = page_range
     context['BookInfo_all_list'] = page_of_recordings
     return render(request, 'Cancel_page.html', context)
+
+
+@login_required(login_url='user_login')
+def canceling(request):
+    if request.method == 'POST':
+        id = request.POST['id']
+        bookInfo.objects.filter(id=id).update(is_cancel=True)
+        return redirect(request.GET.get('from', reverse('cancel_classroom')))
+    else:
+        return redirect('cancel_classroom')
 
 
 @login_required(login_url='user_login')

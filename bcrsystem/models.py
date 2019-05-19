@@ -32,6 +32,8 @@ class bookInfo(models.Model):
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=True)
     requirement = models.TextField(null=True)
+    is_cancel = models.BooleanField(default=False)
+    is_used = models.BooleanField(default=False)
 
 
 class clean(models.Model):

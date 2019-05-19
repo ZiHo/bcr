@@ -112,9 +112,20 @@
                                 show
                             </button>
                         </td>
-                        <td>
-                            <button type="submit" class="btn btn-primary">Cancel</button>
-                        </td>
+                        {% if recordings.is_cancel == False %}
+                            <form action="{% url 'canceling' %}?from={{ request.get_full_path }}" method="POST">
+                                {% csrf_token %}
+                                <td>
+                                    <button id='id' name='id' type="submit" value="{{ recordings.id }} "
+                                            class="btn btn-primary">Cancel
+                                    </button>
+                                </td>
+                            </form>
+                        {% else %}
+                            <td>
+                                <button type="submit" disabled="disabled" class="btn btn-primary ">Cancel</button>
+                            </td>
+                        {% endif %}
                     </tr>
                     </tbody>
                 {% endfor %}
@@ -125,6 +136,60 @@
         <div class="col-md-2">
         </div>
     </div>
+    <div>
+
+        <div aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if BookInfo_all_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ BookInfo_all_list.previous_page_number }}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">上一页</span>
+                            <span class="sr-only">上一页</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">上一页</span>
+                            <span class="sr-only">上一页</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for page_num in page_range %}
+                    {% if page_num == '...' %}
+                        <li class="page-item disabled"><a class="page-link" href="#">{{ page_num }}</a></li>
+                    {% else %}
+                        {% if page_num == BookInfo_all_list.number %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ page_num }}<span class="sr-only">{{ page_num }}</span></span>
+                            </li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if BookInfo_all_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ BookInfo_all_list.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">Next</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">Next</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+
 </div>
 
 <!------------------------footer---------------------->
@@ -134,13 +199,13 @@
         Copyright © UIC. Python Group 5. All rights reserved.
     </div>
 </footer>
- <script>
-        $(function () {
-            $('[data-toggle="popover"]').popover({
-                trigger: 'hover'
-            })
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover({
+            trigger: 'hover'
         })
-    </script>
+    })
+</script>
 
 </body>
 </html>
