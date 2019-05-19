@@ -9,4 +9,5 @@ urlpatterns = [
     path('manageroom/',views.manage_room,name='manageroom'),
     path('manageuser',views.manage_user,name='manageuser'),
     path('storage/',views.manage_storage,name='managestorge'),
+    path('checking/edit/<int:id>',views.check_application_edit,name='checkApplicationEdit'),
 ]
