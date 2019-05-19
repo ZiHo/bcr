@@ -35,6 +35,9 @@ class bookInfo(models.Model):
     is_cancel = models.BooleanField(default=False)
     is_used = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['book_date','start_hour']
+
 
 class clean(models.Model):
     cleaner_id = models.ForeignKey(User, on_delete=models.DO_NOTHING)
