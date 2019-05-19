@@ -23,23 +23,19 @@ def admin_home(request):
 
 @login_required(login_url='user_login')
 def check_application(request):
-    ###分页设计
     all_recordings = bookInfo.objects.all()
-    paginator = Paginator(all_recordings, 6)  # 没五个记录分页
-    page_num = request.GET.get('page', 1)  # 获取GET,页码
+    paginator = Paginator(all_recordings, 6)
+    page_num = request.GET.get('page', 1)
     page_of_recordings = paginator.get_page(page_num)
-    ###
-    current_page_num = page_of_recordings.number  # 获取当前页码
+    current_page_num = page_of_recordings.number
     page_range = list(range(max(current_page_num - 2, 1), current_page_num)) + \
                  list(range(current_page_num, min(current_page_num + 2, paginator.num_pages) + 1))
 
-    # 加上省略页码标记
     if page_range[0] - 1 >= 2:
         page_range.insert(0, '...')
     if paginator.num_pages - page_range[-1] >= 2:
         page_range.append('...')
 
-    # 加上首页尾页
     if page_range[0] != 1:
         page_range.insert(0, 1)
     if page_range[-1] != paginator.num_pages:
