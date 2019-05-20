@@ -156,7 +156,7 @@ def manage_user_edit(request, id):
 
 @login_required(login_url='user_login')
 def manage_storage(request):
-    all_recordings = storageType.objects.all()
+    all_recordings = storageInfo.objects.all()
     paginator = Paginator(all_recordings, 8)
     page_num = request.GET.get('page', 1)
     page_of_recordings = paginator.get_page(page_num)
@@ -180,4 +180,4 @@ def manage_storage(request):
     context = {}
     context['page_range'] = page_range
     context['Storage_all_list'] = page_of_recordings
-    return render(request, 'Admin_Storage.html')
+    return render(request, 'Admin_Storage.html',context)

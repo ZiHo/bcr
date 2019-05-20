@@ -80,7 +80,7 @@
             <table class="table table-hover" style="text-align:center">
                 <thead>
                 <tr>
-                    <th scope="col">Type</th>
+                    <th scope="col">Storage</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Comment</th>
                 </tr>
@@ -90,7 +90,7 @@
 
                     <tr class="table-primary">
                         <th scope="row">{{ recordings.type_id }}</th>
-                        <td>{{ recordings.id }}</td>
+                        <td>1</td>
                         <td>
                             <button title="comment" value="show" data-container="body"
                                     data-toggle="popover" data-placement="top"
@@ -109,19 +109,19 @@
 
         <div aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                {% if BookInfo_all_list.has_previous %}
+                {% if Storage_all_list.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ BookInfo_all_list.previous_page_number }}"
+                        <a class="page-link" href="?page={{ Storage_all_list.previous_page_number }}"
                            aria-label="Previous">
-                            <span aria-hidden="true">上一页</span>
-                            <span class="sr-only">上一页</span>
+                            <span aria-hidden="true">Last</span>
+                            <span class="sr-only">Last</span>
                         </a>
                     </li>
                 {% else %}
                     <li class="page-item disabled">
                         <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">上一页</span>
-                            <span class="sr-only">上一页</span>
+                            <span aria-hidden="true">Last</span>
+                            <span class="sr-only">Last</span>
                         </a>
                     </li>
                 {% endif %}
@@ -129,7 +129,7 @@
                     {% if page_num == '...' %}
                         <li class="page-item disabled"><a class="page-link" href="#">{{ page_num }}</a></li>
                     {% else %}
-                        {% if page_num == BookInfo_all_list.number %}
+                        {% if page_num == Storage_all_list.number %}
                             <li class="page-item active">
                                 <span class="page-link">{{ page_num }}<span class="sr-only">{{ page_num }}</span></span>
                             </li>
@@ -139,9 +139,9 @@
                         {% endif %}
                     {% endif %}
                 {% endfor %}
-                {% if BookInfo_all_list.has_next %}
+                {% if Storage_all_list.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ BookInfo_all_list.next_page_number }}" aria-label="Next">
+                        <a class="page-link" href="?page={{ Storage_all_list.next_page_number }}" aria-label="Next">
                             <span aria-hidden="true">Next</span>
                             <span class="sr-only">Next</span>
                         </a>
