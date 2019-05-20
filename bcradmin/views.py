@@ -7,7 +7,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib import auth
 from django.urls import reverse
 from bcrsystem.models import *
-from .forms import BookInfoEditAdminForm,ClassroomEditAdminForm
+from .forms import BookInfoEditAdminForm,ClassroomEditAdminForm,UserEditAdminForm
+from django.contrib.auth.models import User
 
 
 def user_logout(request):
@@ -89,6 +90,7 @@ def manage_room(request):
     context['classroom_all_list'] = page_of_recordings
     return render(request, 'Admin_ManageRoom.html',context)
 
+
 @login_required(login_url='user_login')
 def manage_room_edit(request,id):
     if request.method == 'POST':
@@ -110,7 +112,46 @@ def manage_room_edit(request,id):
 
 @login_required(login_url='user_login')
 def manage_user(request):
-    return render(request, 'Admin_MangeUser.html')
+    all_recordings = User.objects.all()
+    paginator = Paginator(all_recordings, 4)
+    page_num = request.GET.get('page', 1)
+    page_of_recordings = paginator.get_page(page_num)
+    current_page_num = page_of_recordings.number
+    page_range = list(range(max(current_page_num - 2, 1), current_page_num)) + \
+                 list(range(current_page_num, min(current_page_num + 2, paginator.num_pages) + 1))
+
+    if page_range[0] - 1 >= 2:
+        page_range.insert(0, '...')
+    if paginator.num_pages - page_range[-1] >= 2:
+        page_range.append('...')
+
+    if page_range[0] != 1:
+        page_range.insert(0, 1)
+    if page_range[-1] != paginator.num_pages:
+        page_range.append(paginator.num_pages)
+    context = dict()
+    context['page_range'] = page_range
+    context['user_all_list'] = page_of_recordings
+    return render(request, 'Admin_MangeUser.html', context)
+
+
+@login_required(login_url='user_login')
+def manage_user_edit(request, id):
+    if request.method == 'POST':
+        changing_user = User.objects.get(pk=id)
+        form = UserEditAdminForm(data=request.POST, instance=changing_user)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('manageuser'))
+        else:
+            context = dict()
+            context['form'] = form
+            return render(request, 'Admin_ManageUser_edit.html', context)
+    else:
+        userInfo1 = get_object_or_404(User, pk=id)
+        context = dict()
+        context['form'] = UserEditAdminForm(instance=userInfo1)
+        return render(request, 'Admin_ManageUser_edit.html', context)
 
 
 @login_required(login_url='user_login')

@@ -62,71 +62,105 @@
     </nav>
 </header>
 <div class="container"><br><br><br>
-    <div class="row">
-        <h2>Search Users</h2>
-    </div>
-    <div class="row">
-        <form class="form-inline">
-            <div class="form-group">
-                <div class="col-sm-2">
-                    <label class="form-inline">Identity</label>
-                </div>
-                <div class="col-sm-5">
-                    <select class="form-control" style="width:300px">
-                        <option>Year-1</option>
-                        <option>Year-2</option>
-                        <option>Year-3</option>
-                        <option>Year-4</option>
-                        <option>Teacher</option>
-                        <option>Association</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-2">
-                    <label class="form-inline">Major</label>
-                </div>
-                <div class="col-sm-5">
-                    <select class="form-control" style="width:300px">
-                        <option>Accounting</option>
-                        <option>Finance</option>
-                        <option>Applied Economics</option>
-                        <option>Management of Human Resources</option>
-                        <option>Marketing Management</option>
-                        <option>Culture, Creativity and Management</option>
-                        <option>Cinema and Television</option>
-                        <option>Media Arts and Design</option>
-                        <option>Applied Translation Studies</option>
-                        <option>English Language and Literature Studies</option>
-                        <option>Government and International Relations</option>
-                        <option>International Journalism</option>
-                        <option>Public Relations and Advertising</option>
-                        <option>Social Work and Social Administration</option>
-                        <option>Applied Psychology</option>
-                        <option>Computer Science and Technology</option>
-                        <option>Data Science</option>
-                        <option>Environmental Science</option>
-                        <option>Statistics</option>
-                        <option>Financial Mathematics</option>
-                        <option>Food Science and Technology</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-2">
-                    <button class="btn btn-primary" style="width:100px">Search</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <br><br><br>
-    <div>
+{#    <div class="row">#}
+{#        <h2>Search Users</h2>#}
+{#    </div>#}
+{#    <div class="row">#}
+{#        <form class="form-inline">#}
+{#            <div class="form-group">#}
+{#                <div class="col-sm-2">#}
+{#                    <label class="form-inline">Identity</label>#}
+{#                </div>#}
+{#                <div class="col-sm-5">#}
+{#                    <select class="form-control" style="width:300px">#}
+{#                        <option>Year-1</option>#}
+{#                        <option>Year-2</option>#}
+{#                        <option>Year-3</option>#}
+{#                        <option>Year-4</option>#}
+{#                        <option>Teacher</option>#}
+{#                        <option>Association</option>#}
+{#                    </select>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="form-group">#}
+{#                <div class="col-sm-2">#}
+{#                    <label class="form-inline">Major</label>#}
+{#                </div>#}
+{#                <div class="col-sm-5">#}
+{#                    <select class="form-control" style="width:300px">#}
+{#                        <option>Accounting</option>#}
+{#                        <option>Finance</option>#}
+{#                        <option>Applied Economics</option>#}
+{#                        <option>Management of Human Resources</option>#}
+{#                        <option>Marketing Management</option>#}
+{#                        <option>Culture, Creativity and Management</option>#}
+{#                        <option>Cinema and Television</option>#}
+{#                        <option>Media Arts and Design</option>#}
+{#                        <option>Applied Translation Studies</option>#}
+{#                        <option>English Language and Literature Studies</option>#}
+{#                        <option>Government and International Relations</option>#}
+{#                        <option>International Journalism</option>#}
+{#                        <option>Public Relations and Advertising</option>#}
+{#                        <option>Social Work and Social Administration</option>#}
+{#                        <option>Applied Psychology</option>#}
+{#                        <option>Computer Science and Technology</option>#}
+{#                        <option>Data Science</option>#}
+{#                        <option>Environmental Science</option>#}
+{#                        <option>Statistics</option>#}
+{#                        <option>Financial Mathematics</option>#}
+{#                        <option>Food Science and Technology</option>#}
+{#                    </select>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="form-group">#}
+{#                <div class="col-sm-2">#}
+{#                    <button class="btn btn-primary" style="width:100px">Search</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
+{#    <br><br><br>#}
+{#    <div>#}
 
         <!--
         点击search输出数据库中匹配的表单（可直接前端编辑那种）
         加油！
         -->
+    <div class="row">
+    <div class="col-md-2">
 
+    </div>
+        <div class="col-md-8">
+            <table class="table table-hover" style="text-align:center">
+                <thead>
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Advance</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for recordings in user_all_list.object_list %}
+
+                    <tr class="table-primary">
+                        <th scope="row">{{ recordings.username }}</th>
+                        <td>{{ recordings.email }}</td>
+                        <td>{{ recordings.last_name }}</td>
+                        <td>{{ recordings.first_name }}</td>
+                        <td><a href="{% url 'manageUserEdit' recordings.id %}" ><button type="button" title="comment" value="show" data-container="body"
+                                    data-toggle="popover" data-placement="top"
+{#                                    data-content="{{ recordings.requirement }}">#}>
+                                edit
+                            </button></a></td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
     </div>
 
 </div>
