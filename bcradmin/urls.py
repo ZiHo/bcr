@@ -10,4 +10,5 @@ urlpatterns = [
     path('manageuser',views.manage_user,name='manageuser'),
     path('storage/',views.manage_storage,name='managestorge'),
     path('checking/edit/<int:id>',views.check_application_edit,name='checkApplicationEdit'),
+    path('manageroom/edit/<int:id>',views.manage_room_edit,name='manageroomEdit'),
 ]

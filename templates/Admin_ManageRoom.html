@@ -75,65 +75,83 @@
                 <thead>
                 <tr>
                     <th scope="col">RoomNumber</th>
-                    <th scope="col">Need to clean</th>
-                    <th scope="col">Need to maintain</th>
+                    <th scope="col">Max People</th>
+                    <th scope="col">Need to Clean</th>
+                    <th scope="col">Advance</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="table-primary">
-                    <th scope="row">101</th>
-                    <td style="color:red">Yes</td>
-                    <td style="color:red">Yes</td>
-                </tr>
+                {% for recordings in classroom_all_list.object_list %}
+
+                    <tr class="table-primary">
+                        <th scope="row">{{ recordings.room_location }}</th>
+                        <th scope="row">{{ recordings.max_people }}</th>
+                        {% if recordings.is_clean %}
+                            <td> √</td>
+                        {% else %}
+                            <td>✘</td>
+                        {% endif %}
+                        <td>
+                            <a href="{% url 'manageroomEdit' recordings.id %}">
+                                <button type="button" title="comment" value="show" data-container="body"
+                                        data-toggle="popover" data-placement="top"
+                                        data-content="Edit">
+                                    edit
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
+
             </table>
             </br></br></br></br>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <h3>Change Room status:</h3></br></br>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-7">
-            <table class="table table-hover" style="text-align:center">
-                <thead>
-                <tr>
-                    <th scope="col">RoomNumber</th>
-                    <th scope="col">Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="table-primary">
-                    <th scope="row">101</th>
-                    <td>
-                        <div class="form-group">
-                            <div for="applicationagree"></div>
-                            <select class="form-control" id="applicationagree">
-                                <option>Unavailable</option>
-                                <option>available</option>
-                            </select>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            </br>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-5">
-            <!--用来居中的-->
-        </div>
-        <div class="col-md-4">
-            <form class="form-inline my-2 my-lg-0">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Submit</button>
-            </form>
-        </div>
-    </div>
+    {#    <div class="row">#}
+    {#        <div class="col-md-4">#}
+    {#            <h3>Change Room status:</h3></br></br>#}
+    {#        </div>#}
+    {#    </div>#}
+    {#    <div class="row">#}
+    {#        <div class="col-md-2">#}
+    {#        </div>#}
+    {#        <div class="col-md-7">#}
+    {#            <table class="table table-hover" style="text-align:center">#}
+    {#                <thead>#}
+    {#                <tr>#}
+    {#                    <th scope="col">RoomNumber</th>#}
+    {#                    <th scope="col">Status</th>#}
+    {#                </tr>#}
+    {#                </thead>#}
+    {#                <tbody>#}
+    {#                <tr class="table-primary">#}
+    {#                    <th scope="row">101</th>#}
+    {#                    <td>#}
+    {#                        <div class="form-group">#}
+    {#                            <div for="applicationagree"></div>#}
+    {#                            <select class="form-control" id="applicationagree">#}
+    {#                                <option>Unavailable</option>#}
+    {#                                <option>available</option>#}
+    {#                            </select>#}
+    {#                        </div>#}
+    {#                    </td>#}
+    {#                </tr>#}
+    {#                </tbody>#}
+    {#            </table>#}
+    {#            </br>#}
+    {#        </div>#}
+    {#    </div>#}
+    {#    <div class="row">#}
+    {#        <div class="col-md-5">#}
+    {#            <!--用来居中的-->#}
+    {#        </div>#}
+    {#        <div class="col-md-4">#}
+    {#            <form class="form-inline my-2 my-lg-0">#}
+    {#                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Submit</button>#}
+    {#            </form>#}
+    {#        </div>#}
+    {#    </div>#}
 </div>
 <br><br>
 <footer>

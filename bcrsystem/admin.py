@@ -4,7 +4,7 @@ from .models import classroom, storageType, storageInfo, bookInfo, clean, credit
 
 @admin.register(classroom)
 class classroomAdmin(admin.ModelAdmin):
-    list_display = ('id', 'room_location', 'max_people', 'is_labroom')
+    list_display = ('id', 'room_location', 'max_people', 'is_labroom','is_clean')
 
 
 @admin.register(storageType)
