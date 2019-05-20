@@ -37,7 +37,7 @@ class bookInfo(models.Model):
     is_used = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['book_date','start_hour']
+        ordering = ['book_date', 'start_hour']
 
 
 class clean(models.Model):
@@ -57,3 +57,5 @@ class creditRecord(models.Model):
     in_decrease = models.BooleanField(default=False)
     balance = models.IntegerField(default=0)
     credit_time = models.DateTimeField(auto_now_add=True)
+    # link_classroom = models.ForeignKey(classroom, on_delete=models.DO_NOTHING,default=0)
+    # record_comment = models.TextField(null=True)

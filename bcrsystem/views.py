@@ -62,14 +62,14 @@ def bookClassroom(request):
             # ----------------------------------
             # Check the previous booking order
             # ----------------------------------
-            if bookInfo.objects.filter(classroom_id=classroomID, start_hour=startHour):
+            if creditrecord.objects.filter(classroom_id=classroomID, start_hour=startHour):
                 bookError = "This classroom has been booked."
                 context = {}
                 context['book_error'] = bookError
                 return render(request, 'Booking_page.html', context)
                 # return redirect(reverse('showResult'),context)
             else:
-                bookInfo.objects.create(
+                creditrecord.objects.create(
                     booker_id_id=userID,
                     book_date=bookDate,
                     classroom_id_id=classroomID,
@@ -92,7 +92,7 @@ def bookClassroom(request):
 @login_required(login_url='user_login')
 def cancelClassroom(request):
     userID = request.session.get('_auth_user_id')
-    all_recordings = bookInfo.objects.filter(booker_id_id=userID)
+    all_recordings = creditrecord.objects.filter(booker_id_id=userID)
     paginator = Paginator(all_recordings, 6)
     page_num = request.GET.get('page', 1)
     page_of_recordings = paginator.get_page(page_num)
@@ -117,7 +117,7 @@ def cancelClassroom(request):
     context = {}
     context['classroom_location'] = classroom_Location
     context['page_range'] = page_range
-    context['BookInfo_all_list'] = page_of_recordings
+    context['creditrecord_all_list'] = page_of_recordings
     return render(request, 'Cancel_page.html', context)
 
 
@@ -125,7 +125,7 @@ def cancelClassroom(request):
 def canceling(request):
     if request.method == 'POST':
         id = request.POST['id']
-        bookInfo.objects.filter(id=id).update(is_cancel=True)
+        creditrecord.objects.filter(id=id).update(is_cancel=True)
         return redirect(request.GET.get('from', reverse('cancel_classroom')))
     else:
         return redirect('cancel_classroom')
@@ -148,7 +148,34 @@ def mailbox(request):
 
 @login_required(login_url='user_login')
 def myProfile(request):
-    return render(request, 'Porfile_page.html')
+    userID = request.session.get('_auth_user_id')
+    changing_user = User.objects.all()
+    user_credit = credit.objects.get(user_id_id=userID)
+    all_recordings = creditRecord.objects.filter(user_id_id=userID)
+    paginator = Paginator(all_recordings, 3)
+    page_num = request.GET.get('page', 1)
+    page_of_recordings = paginator.get_page(page_num)
+
+    current_page_num = page_of_recordings.number  # 获取当前页码
+    page_range = list(range(max(current_page_num - 2, 1), current_page_num)) + \
+                 list(range(current_page_num, min(current_page_num + 2, paginator.num_pages) + 1))
+
+    # 加上省略页码标记
+    if page_range[0] - 1 >= 2:
+        page_range.insert(0, '...')
+    if paginator.num_pages - page_range[-1] >= 2:
+        page_range.append('...')
+
+    # 加上首页尾页
+    if page_range[0] != 1:
+        page_range.insert(0, 1)
+    if page_range[-1] != paginator.num_pages:
+        page_range.append(paginator.num_pages)
+    ###
+    context = {}
+    context['page_range'] = page_range
+    context['creditrecord_all_list'] = page_of_recordings
+    return render(request, 'Porfile_page.html', context)
 
 
 @login_required(login_url='user_login')

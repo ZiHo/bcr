@@ -97,25 +97,30 @@
                 <tbody>
                 <tr>
                     <th scope="row">Department</th>
-                    <td>101010101010</td>
+                    {% if recordings.is_staff == True %}
+                        <td>Administrator</td>
+                    {% else %}
+                        <td> User</td>
+                    {% endif %}
                 </tr>
                 </tbody>
-                <tbody>
-                <tr>
-                    <th scope="row">Year</th>
-                    <td>101010101010</td>
-                </tr>
-                </tbody>
+                {#                <tbody>#}
+                {#                <tr>#}
+                {#                    <th scope="row">Year</th>#}
+                {#                    <td>101010101010</td>#}
+                {#                </tr>#}
+                {#                </tbody>#}
                 <tbody>
                 <tr>
                     <th scope="row">Reaming Reservation Time</th>
-                    <td>101010101010</td>
+                    <td>2</td>
                 </tr>
                 </tbody>
                 <tbody>
                 <tr>
                     <th scope="row">Credit Score</th>
-                    <td>101010101010</td>
+                    {#                    <td>{{ credit }}</td>#}
+                    <td>80</td>
                 </tr>
                 </tbody>
             </table>
@@ -126,34 +131,34 @@
         </div>
     </div>
 </div>
-<br><br>
-<div class="row">
-    <div class="col-md-2">
-    </div>
-    <h2>This Week Reservation</h2>
-</div>
-<div class="row">
-    <div class="col-md-3">
-    </div>
-    <div class="col-md-6">
-        <table class="table table-hover" style="text-align:center">
-            <thead>
-            <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Time</th>
-                <th scope="col">RoomNumber</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="table-primary">
-                <th scope="row">number</th>
-                <td>number</td>
-                <td>number</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+{#<br><br>#}
+{#<div class="row">#}
+{#    <div class="col-md-2">#}
+{#    </div>#}
+{#    <h2>This Week Reservation</h2>#}
+{#</div>#}
+{#<div class="row">#}
+{#    <div class="col-md-3">#}
+{#    </div>#}
+{#    <div class="col-md-6">#}
+{#        <table class="table table-hover" style="text-align:center">#}
+{#            <thead>#}
+{#            <tr>#}
+{#                <th scope="col">Date</th>#}
+{#                <th scope="col">Time</th>#}
+{#                <th scope="col">RoomNumber</th>#}
+{#            </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#            <tr class="table-primary">#}
+{#                <th scope="row">number</th>#}
+{#                <td>number</td>#}
+{#                <td>number</td>#}
+{#            </tr>#}
+{#            </tbody>#}
+{#        </table>#}
+{#    </div>#}
+{#</div>#}
 <br><br>
 <div class="row">
     <div class="col-md-2">
@@ -167,19 +172,40 @@
         <table class="table table-hover" style="text-align:center">
             <thead>
             <tr>
-                <th scope="col">Date</th>
                 <th scope="col">Time</th>
-                <th scope="col">RoomNumber</th>
+                <th scope="col">Posi/Nagetive</th>
+                <th scope="col">Balance</th>
                 <th scope="col">Reason</th>
             </tr>
             </thead>
+            {#            <tbody>#}
+            {#            <tr class="table-primary">#}
+            {#                <th scope="row">number</th>#}
+            {#                <td>number</td>#}
+            {#                <td>number</td>#}
+            {#                <td>number</td>#}
+            {#            </tr>#}
+            {#            </tbody>#}
             <tbody>
-            <tr class="table-primary">
-                <th scope="row">number</th>
-                <td>number</td>
-                <td>number</td>
-                <td>number</td>
-            </tr>
+            {% for recordings in creditrecord_all_list.object_list %}
+
+                <tr class="table-primary">
+                    <th scope="row">{{ recordings.credit_time }}</th>
+                    {% if recordings.in_decrease == True %}
+                        <td> Good </td>
+                    {% else %}
+                        <td> Violated </td>
+                    {% endif %}
+                    <td>{{ recordings.balance }}</td>
+                    <td>
+                        <button title="comment" value="show" data-container="body"
+                                data-toggle="popover" data-placement="top"
+                                data-content="{{ recordings.reason }}">
+                            show
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
