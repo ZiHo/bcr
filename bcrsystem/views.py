@@ -92,7 +92,7 @@ def bookClassroom(request):
 @login_required(login_url='user_login')
 def cancelClassroom(request):
     userID = request.session.get('_auth_user_id')
-    all_recordings = creditrecord.objects.filter(booker_id_id=userID)
+    all_recordings = bookInfo.objects.filter(booker_id_id=userID)
     paginator = Paginator(all_recordings, 6)
     page_num = request.GET.get('page', 1)
     page_of_recordings = paginator.get_page(page_num)
@@ -117,7 +117,7 @@ def cancelClassroom(request):
     context = {}
     context['classroom_location'] = classroom_Location
     context['page_range'] = page_range
-    context['creditrecord_all_list'] = page_of_recordings
+    context['BookInfo_all_list'] = page_of_recordings
     return render(request, 'Cancel_page.html', context)
 
 
