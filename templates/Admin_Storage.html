@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Manage Room</title>
-
+    <script type="text/javascript" src="/static/jquery/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/static/popper.js-1.14.4/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
     <!-- Bootstrap -->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
 
@@ -76,22 +80,84 @@
             <table class="table table-hover" style="text-align:center">
                 <thead>
                 <tr>
-                    <th scope="col">Board Pen</th>
-                    <th scope="col">Board Erase</th>
-                    <th scope="col">Microphone</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Comment</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="table-primary">
-                    <th scope="row">number</th>
-                    <td>number</td>
-                    <td>number</td>
-                </tr>
+                {% for recordings in Storage_all_list.object_list %}
+
+                    <tr class="table-primary">
+                        <th scope="row">{{ recordings.type_id }}</th>
+                        <td>{{ recordings.id }}</td>
+                        <td>
+                            <button title="comment" value="show" data-container="body"
+                                    data-toggle="popover" data-placement="top"
+                                    data-content="{{ recordings.storage_comment }}">
+                                details
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
             </br></br></br></br>
         </div>
     </div>
+    <div>
+
+        <div aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if BookInfo_all_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ BookInfo_all_list.previous_page_number }}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">上一页</span>
+                            <span class="sr-only">上一页</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">上一页</span>
+                            <span class="sr-only">上一页</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for page_num in page_range %}
+                    {% if page_num == '...' %}
+                        <li class="page-item disabled"><a class="page-link" href="#">{{ page_num }}</a></li>
+                    {% else %}
+                        {% if page_num == BookInfo_all_list.number %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ page_num }}<span class="sr-only">{{ page_num }}</span></span>
+                            </li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if BookInfo_all_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ BookInfo_all_list.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">Next</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">Next</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-5">
             <!--用来居中的-->
@@ -108,5 +174,12 @@
         Copyright © UIC. Python Group 5. All rights reserved.
     </div>
 </footer>
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover({
+            trigger: 'hover'
+        })
+    })
+</script>
 </body>
 </html>

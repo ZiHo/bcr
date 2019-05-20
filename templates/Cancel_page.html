@@ -131,8 +131,8 @@
                             </td>
                         {% endif %}
                     </tr>
-                    </tbody>
                 {% endfor %}
+                </tbody>
             </table>
         </div>
         <div class="col-lg-4">
@@ -148,15 +148,15 @@
                     <li class="page-item">
                         <a class="page-link" href="?page={{ BookInfo_all_list.previous_page_number }}"
                            aria-label="Previous">
-                            <span aria-hidden="true">上一页</span>
-                            <span class="sr-only">上一页</span>
+                            <span aria-hidden="true">Last</span>
+                            <span class="sr-only">Last</span>
                         </a>
                     </li>
                 {% else %}
                     <li class="page-item disabled">
                         <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">上一页</span>
-                            <span class="sr-only">上一页</span>
+                            <span aria-hidden="true">Last</span>
+                            <span class="sr-only">Last</span>
                         </a>
                     </li>
                 {% endif %}
