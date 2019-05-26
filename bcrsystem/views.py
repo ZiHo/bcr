@@ -62,14 +62,14 @@ def bookClassroom(request):
             # ----------------------------------
             # Check the previous booking order
             # ----------------------------------
-            if creditrecord.objects.filter(classroom_id=classroomID, start_hour=startHour):
+            if bookInfo.objects.filter(classroom_id=classroomID, start_hour=startHour):
                 bookError = "This classroom has been booked."
                 context = {}
                 context['book_error'] = bookError
                 return render(request, 'Booking_page.html', context)
                 # return redirect(reverse('showResult'),context)
             else:
-                creditrecord.objects.create(
+                bookInfo.objects.create(
                     booker_id_id=userID,
                     book_date=bookDate,
                     classroom_id_id=classroomID,
@@ -125,7 +125,7 @@ def cancelClassroom(request):
 def canceling(request):
     if request.method == 'POST':
         id = request.POST['id']
-        creditrecord.objects.filter(id=id).update(is_cancel=True)
+        creditRecord.objects.filter(id=id).update(is_cancel=True)
         return redirect(request.GET.get('from', reverse('cancel_classroom')))
     else:
         return redirect('cancel_classroom')

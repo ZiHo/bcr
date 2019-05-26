@@ -69,7 +69,7 @@ def check_application_edit(request, id):
 @login_required(login_url='user_login')
 def manage_room(request):
     all_recordings = classroom.objects.all()
-    paginator = Paginator(all_recordings, 4)
+    paginator = Paginator(all_recordings, 10)
     page_num = request.GET.get('page', 1)
     page_of_recordings = paginator.get_page(page_num)
     current_page_num = page_of_recordings.number
@@ -179,5 +179,5 @@ def manage_storage(request):
     ###
     context = {}
     context['page_range'] = page_range
-    context['Storage_all_list'] = page_of_recordings
+    context['storage_all_list'] = page_of_recordings
     return render(request, 'Admin_Storage.html',context)
