@@ -161,23 +161,20 @@ def manage_storage(request):
     page_num = request.GET.get('page', 1)
     page_of_recordings = paginator.get_page(page_num)
 
-    current_page_num = page_of_recordings.number  # 获取当前页码
+    current_page_num = page_of_recordings.number
     page_range = list(range(max(current_page_num - 2, 1), current_page_num)) + \
                  list(range(current_page_num, min(current_page_num + 2, paginator.num_pages) + 1))
 
-    # 加上省略页码标记
     if page_range[0] - 1 >= 2:
         page_range.insert(0, '...')
     if paginator.num_pages - page_range[-1] >= 2:
         page_range.append('...')
 
-    # 加上首页尾页
     if page_range[0] != 1:
         page_range.insert(0, 1)
     if page_range[-1] != paginator.num_pages:
         page_range.append(paginator.num_pages)
-    ###
     context = {}
     context['page_range'] = page_range
-    context['storage_all_list'] = page_of_recordings
+    context['Storage_all_list'] = page_of_recordings
     return render(request, 'Admin_Storage.html',context)
