@@ -14,4 +14,5 @@ urlpatterns = [
     path('myprofile/', views.myProfile, name='myProfile'),
     path('result/', views.showResult, name='showResult'),
     path('cancelresult/', views.canceling, name='canceling'),
+    path('feedback/edit/<int:id>', views.feedbackEdit, name='feedbackEdit'),
 ]
