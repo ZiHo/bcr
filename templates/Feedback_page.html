@@ -92,61 +92,106 @@
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
                     <th scope="col">Room Number</th>
-                    <th scope="col">Feedback</th>
+                    <th scope="col">Comment</th>
+                    <th scope="col">Reserve</th>
                 </tr>
                 </thead>
+
                 <tbody>
-                <tr class="table-primary">
-                    <th scope="row">2019/05/01</th>
-                    <th scope="row">9:00-10:00</th>
-                    <td>T29-201</td>
-                    <td>
-                        <button type="button" class="btn btn-primary">Confirm</button>
-                    </td>
-                </tr>
+                {% for recordings in BookInfo_all_list.object_list %}
+
+                    <tr class="table-primary">
+                        <th scope="row">{{ recordings.book_date }}</th>
+                        <th scope="row">{{ recordings.start_hour }}:00 - {{ recordings.end_hour }}:00</th>
+                        <td>{{ recordings.classroom_id }}</td>
+                        <td>
+                            <button title="comment" value="show" data-container="body"
+                                    data-toggle="popover" data-placement="top"
+                                    data-content="{{ recordings.requirement }}">
+                                show
+                            </button>
+                        </td>
+                        {% if recordings.is_cancel == False %}
+                            <form action="{% url 'canceling' %}?from={{ request.get_full_path }}" method="POST">
+                                {% csrf_token %}
+                                <td>
+                                    <button id='id' name='id' type="submit" value="{{ recordings.id }} "
+                                            class="btn btn-primary">submit
+                                    </button>
+                                    {#                                    <button id='id' name='id' type="submit" value="{{ recordings.id }}" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="top" data-content="{{ recordings.booker_id }}借了教室">Cancel</button>#}
+                                </td>
+                            </form>
+                        {% else %}
+                            <td>
+                                <button type="submit" disabled="disabled" class="btn btn-primary ">submit</button>
+                                {#                                <button type="submit" class="btn btn-primary" data-container="body" data-toggle="popover" data-placement="top" data-content="{{ recordings.booker_id }}借了教室">Cancel</button>#}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
+
         </div>
         <div class="col-lg-4">
         </div>
         <div class="col-md-2">
         </div>
-    </div>
-</div>
-<br><br><br>
-<div class="row">
-    <div class="col-md-3">
-    </div>
-    <h2>Clean</h2>
-</div>
-<div class="row">
-    <div class="col-md-4">
+        <div aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if BookInfo_all_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ BookInfo_all_list.previous_page_number }}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">Last</span>
+                            <span class="sr-only">Last</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">Last</span>
+                            <span class="sr-only">Last</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for page_num in page_range %}
+                    {% if page_num == '...' %}
+                        <li class="page-item disabled"><a class="page-link" href="#">{{ page_num }}</a></li>
+                    {% else %}
+                        {% if page_num == BookInfo_all_list.number %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ page_num }}<span class="sr-only">{{ page_num }}</span></span>
+                            </li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if BookInfo_all_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ BookInfo_all_list.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">Next</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">Next</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
 
     </div>
-    <div class="col-md-2">
-        <div class="custom-control custom-radio">
-            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-            <label class="custom-control-label" for="customRadio2">Yes</label>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="custom-control custom-radio">
-            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">
-            <label class="custom-control-label" for="customRadio1">No</label>
-        </div>
-    </div>
-    <div class="col-md-2">
-    </div>
 </div>
-<br><br><br>
-{#<div class="row">#}
-{#    <div class="col-md-3">#}
-{#    </div>#}
-{#    <h2>Service</h2>#}
-{#</div>#}
+{#<br><br><br>#}
 {#<div class="row">#}
 {#    <div class="col-md-4">#}
-{##}
 {#    </div>#}
 {#    <div class="col-md-2">#}
 {#        <div class="custom-control custom-radio">#}
@@ -160,9 +205,9 @@
 {#            <label class="custom-control-label" for="customRadio1">No</label>#}
 {#        </div>#}
 {#    </div>#}
-{#    <div class="col-md-2">#}
-{#    </div>#}
-{#</div>#}
+    <div class="col-md-2">
+    </div>
+</div>
 <br><br><br>
 <div class="row">
     <div class="col-md-3">

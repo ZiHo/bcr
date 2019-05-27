@@ -8,6 +8,9 @@ class classroom(models.Model):
     is_labroom = models.BooleanField(default=0)
     is_clean = models.BooleanField(default=True)
 
+    class Meta:
+        ordering = ['room_location']
+
     def __str__(self):
         return "%s" % self.room_location
 
@@ -37,7 +40,7 @@ class bookInfo(models.Model):
     is_used = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['book_date', 'start_hour']
+        ordering = ['-book_date', '-start_hour']
 
 
 class clean(models.Model):
@@ -57,5 +60,18 @@ class creditRecord(models.Model):
     in_decrease = models.BooleanField(default=False)
     balance = models.IntegerField(default=0)
     credit_time = models.DateTimeField(auto_now_add=True)
-    # link_classroom = models.ForeignKey(classroom, on_delete=models.DO_NOTHING,default=0)
-    # record_comment = models.TextField(null=True)
+    linkClassroom = models.ForeignKey(classroom, on_delete=models.DO_NOTHING)
+    record_comment = models.TextField(null=True)
+
+    class Meta:
+        ordering = ['-credit_time']
+
+
+class mailboxInfo(models.Model):
+    sender = models.CharField(max_length=10)
+    receiver = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    send_time = models.DateTimeField(auto_now_add=True)
+    mail_context = models.TextField(null=True)
+
+    class Meta:
+        ordering = ['send_time']

@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import classroom, storageType, storageInfo, bookInfo, clean, credit, creditRecord
+from .models import classroom, storageType, storageInfo, bookInfo, clean, credit, creditRecord, mailboxInfo
 
 
 @admin.register(classroom)
 class classroomAdmin(admin.ModelAdmin):
-    list_display = ('id', 'room_location', 'max_people', 'is_labroom','is_clean')
+    list_display = ('id', 'room_location', 'max_people', 'is_labroom', 'is_clean')
 
 
 @admin.register(storageType)
@@ -35,5 +35,10 @@ class creditAdmin(admin.ModelAdmin):
 
 
 @admin.register(creditRecord)
-class creditRecord(admin.ModelAdmin):
-    list_display = ('user_id', 'in_decrease', 'balance', 'credit_time')
+class creditRecordlAdmin(admin.ModelAdmin):
+    list_display = ('user_id', 'in_decrease', 'balance', 'credit_time', 'linkClassroom', 'record_comment')
+
+
+@admin.register(mailboxInfo)
+class mailboxInfoAdmin(admin.ModelAdmin):
+    list_display = ('sender', 'receiver', 'send_time', 'mail_context')

@@ -62,7 +62,7 @@ def bookClassroom(request):
             # ----------------------------------
             # Check the previous booking order
             # ----------------------------------
-            if bookInfo.objects.filter(classroom_id=classroomID, start_hour=startHour):
+            if bookInfo.objects.filter(classroom_id=classroomID, book_date=bookDate, start_hour=startHour):
                 bookError = "This classroom has been booked."
                 context = {}
                 context['book_error'] = bookError
@@ -97,7 +97,7 @@ def cancelClassroom(request):
     page_num = request.GET.get('page', 1)
     page_of_recordings = paginator.get_page(page_num)
 
-    current_page_num = page_of_recordings.number  # 获取当前页码
+    current_page_num = page_of_recordings.number
     page_range = list(range(max(current_page_num - 2, 1), current_page_num)) + \
                  list(range(current_page_num, min(current_page_num + 2, paginator.num_pages) + 1))
 
@@ -125,7 +125,8 @@ def cancelClassroom(request):
 def canceling(request):
     if request.method == 'POST':
         id = request.POST['id']
-        creditRecord.objects.filter(id=id).update(is_cancel=True)
+        bookInfo.objects.filter(id=id).update(is_cancel=1)
+        bookInfo.objects.filter(id=id).update(requirement='It is canceled')
         return redirect(request.GET.get('from', reverse('cancel_classroom')))
     else:
         return redirect('cancel_classroom')
@@ -138,20 +139,8 @@ def loogbookClassroom(request):
 
 @login_required(login_url='user_login')
 def useFeedback(request):
-    return render(request, 'Feedback_page.html')
-
-
-@login_required(login_url='user_login')
-def mailbox(request):
-    return render(request, 'Mailbox_page.html')
-
-
-@login_required(login_url='user_login')
-def myProfile(request):
     userID = request.session.get('_auth_user_id')
-    changing_user = User.objects.all()
-    user_credit = credit.objects.get(user_id_id=userID)
-    all_recordings = creditRecord.objects.filter(user_id_id=userID)
+    all_recordings = bookInfo.objects.filter(booker_id_id=userID)
     paginator = Paginator(all_recordings, 3)
     page_num = request.GET.get('page', 1)
     page_of_recordings = paginator.get_page(page_num)
@@ -172,10 +161,68 @@ def myProfile(request):
     if page_range[-1] != paginator.num_pages:
         page_range.append(paginator.num_pages)
     ###
+    classroom_Location = classroom.objects.all()
+    context = {}
+    context['classroom_location'] = classroom_Location
+    context['page_range'] = page_range
+    context['BookInfo_all_list'] = page_of_recordings
+    return render(request, 'Feedback_page.html', context)
+
+
+@login_required(login_url='user_login')
+def mailbox(request):
+    userID = request.session.get('_auth_user_id')
+    all_recordings = mailboxInfo.objects.filter(receiver_id=userID)
+
+    paginator = Paginator(all_recordings, 5)
+    page_num = request.GET.get('page', 1)
+    page_of_recordings = paginator.get_page(page_num)
+    current_page_num = page_of_recordings.number
+    page_range = list(range(max(current_page_num - 2, 1), current_page_num)) + \
+                 list(range(current_page_num, min(current_page_num + 2, paginator.num_pages) + 1))
+
+    if page_range[0] - 1 >= 2:
+        page_range.insert(0, '...')
+    if paginator.num_pages - page_range[-1] >= 2:
+        page_range.append('...')
+
+    if page_range[0] != 1:
+        page_range.insert(0, 1)
+    if page_range[-1] != paginator.num_pages:
+        page_range.append(paginator.num_pages)
+    context = dict()
+    context['page_range'] = page_range
+    context['Mailbox_all_list'] = page_of_recordings
+    return render(request, 'Mailbox_page.html', context)
+
+
+@login_required(login_url='user_login')
+def myProfile(request):
+    userID = request.session.get('_auth_user_id')
+    user_credit = credit.objects.get(user_id_id=userID)
+    all_recordings = creditRecord.objects.filter(user_id_id=userID)
+    paginator = Paginator(all_recordings, 3)
+    page_num = request.GET.get('page', 1)
+    page_of_recordings = paginator.get_page(page_num)
+
+    current_page_num = page_of_recordings.number
+    page_range = list(range(max(current_page_num - 2, 1), current_page_num)) + \
+                 list(range(current_page_num, min(current_page_num + 2, paginator.num_pages) + 1))
+
+    if page_range[0] - 1 >= 2:
+        page_range.insert(0, '...')
+    if paginator.num_pages - page_range[-1] >= 2:
+        page_range.append('...')
+
+    if page_range[0] != 1:
+        page_range.insert(0, 1)
+    if page_range[-1] != paginator.num_pages:
+        page_range.append(paginator.num_pages)
+
     context = {}
     context['page_range'] = page_range
     context['creditrecord_all_list'] = page_of_recordings
-    return render(request, 'Porfile_page.html', context)
+    return render(request, 'Profile_page.html', context)
 
 
 @login_required(login_url='user_login')

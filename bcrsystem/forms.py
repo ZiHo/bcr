@@ -64,8 +64,8 @@ class bookingForm(forms.Form):
         return starttime
 
     def clean_End_Time(self):
-        starttime = self.cleaned_data['Start_Time']
-        endtime = self.cleaned_data['End_Time']
+        starttime = int(self.cleaned_data['Start_Time'])
+        endtime = int(self.cleaned_data['End_Time'])
         if endtime <= starttime:
             raise forms.ValidationError("Time Error")
         return endtime
